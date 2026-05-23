@@ -39,9 +39,48 @@
 - ScummVM (~2015 起) 將原 DOS 二進位逆向重寫為跨平台 C++ 引擎，為現代 OS 上的中文化提供新路徑 — 不需破解原 EXE / 不需 DOSBox 模擬器
 - 本專案承接 [u6-cht](https://github.com/wicanr2/u6-cht) (Ultima VI 繁中化) 的**顯示時查表轉化** (Plan B) 方法論
 
+### 本作 NPC 簡介
+
+詳完整對話索引: [translations/dialogue.md](translations/dialogue.md)
+
+#### 反派陣營
+
+| NPC | 身份 | 出處 |
+|---|---|---|
+| **Xanathar** | Beholder (深淵之眼)、犯罪集團首領、本作 BOSS | D&D Forgotten Realms 世襲性 Beholder 頭銜，EOB1 為首次數位遊戲化 (1991)，2017 年 D&D 5e *Xanathar's Guide to Everything* 規則書再度沿用 |
+| **Shindia** | 卓爾女祭司 (Drow priestess)，Xanathar 爪牙 | EOB1 原創。卓爾為 D&D 設定中崇拜蜘蛛女神 Lolth 的地底黑暗精靈，女祭司階層為其社會中樞 |
+
+#### 矮人盟友 (Armun's Clan)
+
+崇拜矮人主神 **Moradin** (D&D 經典「鍛造神」)。
+
+| NPC | 身份 |
+|---|---|
+| **Armun** | 矮人代言人，遠征隊領袖 — entry [4] 揭露族史 (從深水城底地獄地洞展開重返之旅) |
+| **King Teirgoh** | 矮人國王，在 Shindia 攻擊中重傷昏迷，需矮人解毒藥水救醒 |
+| **Prince Keirgar** | 矮人王子，被擄至卓爾領地 — entry [27] 揭露 Xanathar 真正陰謀 |
+| **Taghor** / **Dorhum** | 可加入隊伍的矮人戰士 |
+
+#### 可招募 NPC (用 Resurrection / Raise Dead 救活)
+
+EOB1 經典設計 — 地牢中埋藏 5 具前任冒險者屍體，玩家可選擇復活並招募 (隊伍可達 6 人)。每位 NPC 個性鮮明:
+
+| NPC | 職業 | 個性側寫 |
+|---|---|---|
+| **Anya** | 戰士 | 復活後困惑，誓為同伴復仇 |
+| **Beohram** | 戰士 (深水城 City Watch) | 衛隊獨行調查 Xanathar 失敗陣亡的勇士 |
+| **Kirath** | 盜賊 | 玩世不恭，為金子與魔法物品冒險 |
+| **Ileira** | 牧師修女 | 光明信仰，喜悅加入 |
+| **Tyrra** | 女戰士 | 嘲諷玩家但仍簽訂契約式合作 |
+| **Tod** | 半身人盜賊 (Halfling，D&D 版的 Hobbit) | 跌入下水道後迷失，自介為「正經冒險家」 |
+
+#### 派系背景
+
+**Lords of Waterdeep (深水城諸領主)**: Forgotten Realms 設定中深水城的領導集團 — 由匿名 「Masked Lords」 組成的議會制度，是該城邦真正的統治者 (非 Westwood 原創)。在 EOB1 中委派玩家隊伍 (透過 Commission and Letter of Marque 委任狀) 調查下水道威脅。後續被 *Forgotten Realms* 小說、規則書、與 *Lords of Waterdeep* (2012 桌遊) 多次重現。
+
 ## 現況一句話
 
-**主選單、角色生成、CAMP、屬性表、咒語表、物品名稱、NPC 對話、文件與謎語、最終劇情全中文。** 仍有部分 LEVEL.INF script-embedded 動作訊息 (e.g. "going up...", "appears jammed") 為英文，iter10 用 **load-time substitution table** 處理 (參考 u6-cht 顯示時查表方案)。
+**主選單、角色生成、CAMP、屬性表、咒語表、物品名稱、NPC 對話、文件與謎語、最終劇情全中文。** 仍有部分 LEVEL.INF script-embedded 動作訊息 (e.g. "going up...", "appears jammed") 為英文，iter10 用 **display-time substitution table** 處理 (參考 u6-cht 顯示時查表方案)。
 
 雙擊 `win64-build/啟動.bat` 即玩 (Win10/11 Win64 native, 不需 SteamLibrary)。
 
@@ -181,7 +220,7 @@ wsl.exe -d Ubuntu-22.04 -- bash /mnt/d/03_game_tmp/eob1_cht/wsl-scripts/wsl_buil
 
 詳工具鏈見 [translations/README.md](translations/README.md)。
 
-## ScummVM 引擎改動摘要 (累計 9 個 Fix)
+## ScummVM 引擎改動摘要 (累計 11 個 Fix)
 
 | Fix | iter | 檔案 | 解決 |
 |---|---|---|---|

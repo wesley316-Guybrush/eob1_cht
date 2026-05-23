@@ -102,3 +102,75 @@
 > 兩根石柱拱衛著一張巨大的王座。陽光透入...
 >
 > 深水城諸領主歡迎你們的歸來，感激你們挫敗了 Xanathar 的陰謀。深水城以及矮人王國對於你們的英勇將永誌不忘。
+
+---
+
+## NPC 出處與背景說明
+
+### 反派陣營
+
+#### Xanathar (深淵之眼，Beholder)
+**D&D Forgotten Realms 設定中世襲性 Beholder 犯罪首領頭銜** (非 Westwood 原創)。EOB1 (1991) 為此角色首次數位遊戲化，後續被 D&D 5e 規則書 *Xanathar's Guide to Everything* (Wizards of the Coast, 2017) 大幅擴充。
+
+Beholder (註: 中文常譯「眼魔」、「凝視者」、「奇眼怪」) 是 D&D 標誌性怪物之一 — 球形漂浮生物、中央一隻巨眼、頂部觸手末端各有一隻能發射不同魔法光束的小眼。極度多疑、孤獨、自視甚高 — 「沒有兩隻 Beholder 看起來一樣」。
+
+#### Shindia (卓爾女祭司)
+EOB1 原創角色。**卓爾 (Drow)** 是 D&D Forgotten Realms 經典惡屬種族 — 地底黑暗精靈，崇拜蜘蛛女神 Lolth (羅絲)。女祭司階層在卓爾社會中地位崇高 (母系社會)。
+
+Shindia 受 Xanathar 雇用，率領小隊攻擊矮人殿堂、綁架王子，意圖挑撥卓爾與矮人開戰。在玩家擊敗她時求饒並洩漏 Xanathar 陰謀。
+
+### 矮人盟友陣營
+
+矮人崇拜 **Moradin** (D&D 規則中矮人主神，鍛造神，又譯「莫拉丁」、「靈魂鍛造者」)。
+
+#### Armun (矮人代言人)
+EOB1 原創。Armun 族的代言人，矮人遠征隊 (從深水城地下重返古老矮人殿堂) 的領袖之一。族史長篇 (entry 4) 揭露他們族人如何從深水城底之地獄地洞展開重返之旅，最終遭遇 Shindia 攻擊。
+
+#### King Teirgoh (矮人國王)
+EOB1 原創。Armun 族的國王，在 Shindia 攻擊中受到致命傷害陷入昏迷。需要矮人解毒藥水才能甦醒 — 此情報由 Shindia 在被擊敗時透漏 (entry 15)。
+
+#### Prince Keirgar (矮人王子)
+EOB1 原創。Teirgoh 國王之子，被 Shindia 綁架至卓爾領地。救出他後 (entry 27) 揭露 Xanathar 計畫攻擊矮人王國的更大陰謀。
+
+#### Taghor / Dorhum (矮人戰士)
+EOB1 原創。可選擇加入隊伍的矮人戰士。Taghor 在戰鬥中追擊敵人上樓加入；Dorhum 由 Armun 引介 (entry 7)。
+
+### 可招募 NPC (用 Resurrection / Raise Dead 法術救回)
+
+EOB1 在地牢中安置了 5 具屍體，玩家若使用復活法術可讓他們加入隊伍。每位 NPC 都有獨特個性與背景，反映 AD&D 2e 多元職業設計:
+
+#### Anya (戰士)
+EOB1 原創。前一支冒險隊倒下的戰士，醒來在墓室中。困惑接受隊伍，誓言為同伴復仇。
+
+#### Beohram (City Watch 戰士)
+EOB1 原創。**City Watch (深水城衛隊)** 為 Forgotten Realms 設定中深水城的正式守衛組織。Beohram 是衛隊獨自下井調查 Xanathar 傳聞的勇士，任務失敗陣亡。在 entry 34 自我介紹。
+
+#### Kirath (盜賊)
+EOB1 原創。玩世不恭，為金子與魔法物品而冒險的盜賊類角色。
+
+#### Ileira (牧師修女)
+EOB1 原創。光明信仰的女牧師，與同袍一同深入地牢「打擊邪惡並帶來良善」(entry 38)。
+
+#### Tyrra (女戰士)
+EOB1 原創。被復活後嘲諷玩家但仍同意加入。在 entry 40 表現出獨立、契約式合作的個性。
+
+### 半身人 (Halfling)
+
+#### Tod (半身人盜賊)
+EOB1 原創。半身人 (Halfling，原型為 Tolkien 之 Hobbit，D&D 改名沿用) 盜賊，跌落下水道後在 Tunnel 中被玩家發現。entry 42 自介。
+
+### 派系背景
+
+#### Lords of Waterdeep (深水城諸領主)
+**Forgotten Realms 設定中深水城的領導集團** (非 Westwood 原創) — 由匿名的「Masked Lords」(蒙面領主) 組成的議會制度，是該城邦的真正統治者。EOB1 中委派玩家隊伍 (透過 Commission and Letter of Marque) 調查下水道威脅。後續 *Forgotten Realms* 小說、規則書、*Lords of Waterdeep* (2012 桌遊) 等多次重現此設定。
+
+---
+
+## 翻譯慣例註
+
+- **Beholder** — 沿用 1990s 中文 D&D 圈譯名 (常見：眼魔、深淵之眼、凝視者、奇眼怪)。本作 NPC 為其專有名稱 Xanathar，不翻譯
+- **Drow** — 卓爾 (台灣 1990s D&D 圈標準譯法)；亦見「卓爾族」、「黑暗精靈」
+- **Halfling** — 半身人 (D&D 標準)；亦見「霍比特人」 (Tolkien 原名)
+- **Moradin** — 莫拉丁 (D&D 標準音譯)
+- **City Watch** — 深水城衛隊；功能類似城市警察 + 民兵
+- **Lord** — 諸領主 (議會制度，非單一君主)

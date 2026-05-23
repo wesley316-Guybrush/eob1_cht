@@ -34,7 +34,7 @@ EOB1 的關卡腳本 (LEVEL.INF) 是 **Westwood EMC2 script bytecode** + 內嵌 
 
 ## 場景特有訊息
 
-### LEVEL1.INF (Waterdeep 下水道入口)
+### LEVEL1.INF (深水城下水道入口)
 - `it smells terrible here.` (24B) → `此處味道極差。` (14B) ✓
 - `fallen rocks block the way.` (27B) → `落石擋路。` (10B) ✓
 
