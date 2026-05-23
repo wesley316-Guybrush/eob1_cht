@@ -9,6 +9,36 @@
 **Repo**: https://github.com/wicanr2/eob1_cht
 **Sister project**: [u6-cht](https://github.com/wicanr2/u6-cht) (Ultima VI 繁中化，同樣 ScummVM 路線)
 
+## 關於《魔眼殺機 1》(Eye of the Beholder)
+
+1991 年 Westwood Associates 開發、SSI (Strategic Simulations) 發行的**第一人稱即時格狀地牢探險 RPG**，採用 AD&D 第二版規則 (Advanced Dungeons & Dragons 2nd Edition) 與 Forgotten Realms (遺忘國度) 設定。引擎風格沿襲 1987 *Dungeon Master* (FTL Games)，但加入 AD&D 經典職業/種族/法術系統，是 1990s 早期 PC RPG 的里程碑。
+
+### 故事背景
+
+故事舞台在 Forgotten Realms 北方海岸城邦 **深水城 (Waterdeep)**。城下水道近期傳出邪惡騷動 — 怪物、卓爾 (Drow，黑暗精靈) 與更不祥之物的足跡。深水城議會 (Lords of Waterdeep) 召集一支 4 人冒險隊伍，授予「**委任狀及私掠許可**」(Commission and Letter of Marque)，賦予他們深入下水道的全權通行證，調查並消滅威脅。
+
+冒險隊伍下井後，所有出口隨即在他們身後封閉 — 他們無路可退，只能往更深處探索 12 層地下迷宮:
+
+1. **Waterdeep 下水道** (LEVEL 1-3) — 哥布林、史前怪物、墓地
+2. **古老矮人殿堂** (LEVEL 4-6) — 重新發現的矮人王國 (Armun 族與 Teirgoh 國王)，被卓爾女祭司 **Shindia** 攻擊；矮人 **Keirgar 王子**被擄走
+3. **卓爾領地** (LEVEL 7-9) — 黑暗精靈巡邏隊、奴隸交易、Shindia 的本營
+4. **Beholder 巢穴** (LEVEL 10-12) — 終極反派 **Xanathar** (Forgotten Realms 中世襲性 Beholder 犯罪首領) 的住處，揭露他試圖挑撥矮人/卓爾互鬥以接管深水城的陰謀
+
+### 遊戲機制亮點
+
+- **AD&D 2e 職業/種族**: 戰士/遊俠/聖騎/法師/牧師/盜賊 + 雙職業/三職業組合 (e.g. 戰／法、戰法盜)
+- **法術系統**: 法師/牧師每日記憶法術 (memorize)，含 magic missile, fireball, hold person, cure light wounds 等經典
+- **即時戰鬥**: 點擊武器格觸發攻擊，配合移動/格擋的格狀策略
+- **謎題與機關**: 牆面按鈕、傳送門、印記/鑰匙、矮人語符文
+- **NPC 招募**: 沿路救活倒下的冒險者 (Anya, Beohram, Kirath, Ileira, Tyrra, Tod) 加入隊伍 (隊伍最大 6 人)
+
+### 為何中文化
+
+- EOB1 (1991) 從未有官方繁體中文版
+- 隱月傳奇 (EOB2 ZH fan-translation) 於 1990s 中後期完成，**唯獨 EOB1 始終是空白**
+- ScummVM (~2015 起) 將原 DOS 二進位逆向重寫為跨平台 C++ 引擎，為現代 OS 上的中文化提供新路徑 — 不需破解原 EXE / 不需 DOSBox 模擬器
+- 本專案承接 [u6-cht](https://github.com/wicanr2/u6-cht) (Ultima VI 繁中化) 的**顯示時查表轉化** (Plan B) 方法論
+
 ## 現況一句話
 
 **主選單、角色生成、CAMP、屬性表、咒語表、物品名稱、NPC 對話、文件與謎語、最終劇情全中文。** 仍有部分 LEVEL.INF script-embedded 動作訊息 (e.g. "going up...", "appears jammed") 為英文，iter10 用 **load-time substitution table** 處理 (參考 u6-cht 顯示時查表方案)。
@@ -72,7 +102,7 @@
 - 委任狀及私掠許可 (Commission and Letter of Marque) — 玩家撿到的紙卷
 - 4 個 parchment 謎語 (寶石/矮人項鍊/球/Beholder 弱點)
 
-**最終劇情**: Xanathar 戰敗後，水深市諸領主歡迎 + 矮人王國感念
+**最終劇情**: Xanathar 戰敗後，深水城諸領主歡迎 + 矮人王國感念
 
 詳完整中譯: [translations/dialogue.md](translations/dialogue.md)
 

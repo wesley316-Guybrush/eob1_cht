@@ -40,7 +40,7 @@ wsl.exe -d Ubuntu-22.04 -- python3 /mnt/d/03_game_tmp/eob1_cht/tools/gen_text_da
 
 1. **AD&D 2e 中文化慣例**: 沿用 1990s 中文 D&D 圈標準譯名 (e.g. 戰士/法師/牧師/盜賊；長劍/短劍/長弓)
 2. **專有名詞 (Westwood IP)**: NPC 名 (Armun / Xanathar / Shindia / Tod / Beohram 等) 保留原文音譯
-3. **地名**: 知名地名翻譯 (Waterdeep → 水深市)
+3. **地名**: 知名地名翻譯 (Waterdeep → 深水城)
 4. **遊戲術語**: 簡潔 (擲鏢 vs 短矛投擲)，符合 36px 寬螢幕版面
 5. **長度限制**:
    - 物品名 35 bytes max (cp950 17 字以內)
