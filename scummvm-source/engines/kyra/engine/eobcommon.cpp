@@ -612,7 +612,10 @@ void EoBCoreEngine::loadFonts() {
 		_invFont1 = _invFont2 = _invFont4 = _invFont5 = _invFont6 = _hpStatFont = _conFont = Screen::FID_8_FNT;
 	} else if (_flags.lang == Common::ZH_TWN) {
 		_screen->loadFont(Screen::FID_CHINESE_FNT, "FONT8.FNT");
-		_titleFont = _conFont = _invFont1 = _invFont2 = _invFont4 = Screen::FID_CHINESE_FNT;
+		_titleFont = _conFont = _invFont2 = _invFont4 = Screen::FID_CHINESE_FNT;
+		// _invFont1 stays at FID_6_FNT (default). It draws portrait names (gui_eob.cpp:132)
+		// into a slot sized for 6-px-tall ASCII. FID_CHINESE_FNT uses loadPCBIOSTall (15-tall)
+		// which clips and produces the "tact?" rendering reported as BUG-004.
 		_invFont5 = Screen::FID_8_FNT;
 	}
 }

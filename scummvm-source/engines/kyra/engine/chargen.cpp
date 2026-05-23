@@ -797,7 +797,7 @@ int CharacterGenerator::raceSexMenu() {
 		_screen->sega_getRenderer()->fillRectWithTiles(0, 18, 8, 20, 16, 0);
 		_vm->_txt->printShadedText(_chargenStrings2[8], 0, 0, -1, 0x99);
 	} else {
-		_screen->printShadedText(_chargenStrings2[8], 147, (_vm->game() == GI_EOB2 && _vm->gameFlags().lang == Common::Language::ZH_TWN) ? 65 : 67,
+		_screen->printShadedText(_chargenStrings2[8], 147, (_vm->gameFlags().lang == Common::Language::ZH_TWN) ? 65 : 67,
 					 _vm->guiSettings()->colors.guiColorLightBlue, 0, _vm->guiSettings()->colors.guiColorBlack);
 	}
 	_vm->removeInputTop();
@@ -838,7 +838,7 @@ int CharacterGenerator::classMenu(int raceSex) {
 		_screen->sega_loadTextBackground(_wndBackgrnd, 10240);
 		_screen->sega_getRenderer()->fillRectWithTiles(0, 18, 8, 20, 16, 0);
 		_vm->_txt->printShadedText(_chargenStrings2[9], 0, 0, -1, 0x99);
-	} else if (_vm->game() == GI_EOB2 && _vm->gameFlags().lang == Common::Language::ZH_TWN) {
+	} else if (_vm->gameFlags().lang == Common::Language::ZH_TWN) {
 		_screen->printShadedText(_chargenStrings2[9], 145, 65,
 			_vm->guiSettings()->colors.guiColorLightBlue, 0, _vm->guiSettings()->colors.guiColorBlack);
 	} else {
@@ -917,7 +917,7 @@ int CharacterGenerator::alignmentMenu(int cClass) {
 		_vm->_txt->printShadedText(_chargenStrings2[10], 0, 0, -1, 0x99);
 	} else {
 		_screen->printShadedText(_chargenStrings2[10], 147,
-			(_vm->game() == GI_EOB2 && _vm->gameFlags().lang == Common::Language::ZH_TWN) ? 65 : 67,
+			(_vm->gameFlags().lang == Common::Language::ZH_TWN) ? 65 : 67,
 			_vm->guiSettings()->colors.guiColorLightBlue, 0, _vm->guiSettings()->colors.guiColorBlack);
 	}
 
@@ -1282,7 +1282,7 @@ void CharacterGenerator::printStats(int index, int mode) {
 		_screen->copyRegion(0, 0, 160, 0, 160, 128, 2, 2, Screen::CR_NO_P_CHECK);
 		_screen->_curPage = 2;
 		if (mode != 4)
-			_screen->drawShape(2, c->faceShape, (_vm->game() == GI_EOB2 && _vm->gameFlags().lang == Common::Language::ZH_TWN) ? 289 : 224, 2, 0);
+			_screen->drawShape(2, c->faceShape, (_vm->gameFlags().lang == Common::Language::ZH_TWN) ? 289 : 224, 2, 0);
 	}
 
 	Common::String str1 = Common::String::format(_chargenStrings1[3], _vm->getCharStrength(c->strengthCur, c->strengthExtCur, _vm->gameFlags().platform == Common::kPlatformSegaCD).c_str(), c->intelligenceCur, c->wisdomCur, c->dexterityCur, c->constitutionCur, c->charismaCur);
@@ -1297,7 +1297,7 @@ void CharacterGenerator::printStats(int index, int mode) {
 		_vm->_txt->printShadedText(str1.c_str(), 32, 72);
 		_vm->_txt->printShadedText(str2.c_str(), 112, 72);
 		_vm->_txt->printShadedText(str3.c_str(), 120, 88);
-	} else if (_vm->game() == GI_EOB2 && _vm->gameFlags().lang == Common::Language::ZH_TWN) {
+	} else if (_vm->gameFlags().lang == Common::Language::ZH_TWN) {
 		_screen->printShadedText(c->name, 245, 34, _vm->guiSettings()->colors.guiColorBlue, 0, _vm->guiSettings()->colors.guiColorBlack);
 		_screen->printShadedText(_chargenRaceSexStrings[c->raceSex], 165, 34, _vm->guiSettings()->colors.guiColorDarkBlue, 0, _vm->guiSettings()->colors.guiColorBlack);
 		_screen->printShadedText(_chargenClassStrings[c->cClass], 165, 49, _vm->guiSettings()->colors.guiColorLightRed, 0, _vm->guiSettings()->colors.guiColorBlack);
