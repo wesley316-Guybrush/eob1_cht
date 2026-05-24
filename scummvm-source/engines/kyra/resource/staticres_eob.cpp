@@ -1724,7 +1724,33 @@ const KyraRpgGUISettings EoBEngine::_guiSettingsVGA_ZH = {
 	// headLine/statsValues/acString/expLvl already 15. Now cls/race/alignment/statsStrings
 	// also 15 → all stats panel text uniformly white.
 	{ 15, { 15, 15, 15 }, 15, 15, 15, 15, 15, { 15, 15, 15 } },
-	{ 56, 5, 71, 122, 21, 9, 2, 1, 6, 73, 132, 44, 0, 0, 0, 0, 73, 168, 0, { 0x44, 0x62, 0x80, 0x90 }, { 0x82, 0x92, 0x98 } }
+	// spellbookCoords: iter11 fix — original EN copy had listSize=6 (6 spells/page)
+	// designed for 8-tall ASCII. With Fix H's _bookFont = FID_CHINESE_FNT (15-tall),
+	// 6 entries × 15 = 90 px overflow the list area → user saw EMPTY spell book.
+	// Borrow EOB2 _guiSettingsDOS_ZH spellbook layout (listSize=3, scrollButtonY=161).
+	// iter20 CRASH FIX: numTabs MUST be 5 not 6 for EOB1. EOB2 has 9 mage spell
+	// levels (numTabs=9 there). EOB1 has 5. Borrowed-from-EOB2 numTabs=6 caused
+	// gui_drawSpellbook tab loop to read _magicStrings7[5] which is OOB on the
+	// 5-entry kEoB1MagicStrings7DOSChinese array (一/二/三/四/五) → garbage
+	// pointer → fetchChar deref → 0xC0000005 access violation crash on Windows.
+	// (Linux happened to map zero pages right after the array, masking it pre-iter13;
+	// iter13's 16-tall heap reshuffle moved that mapping → crash exposed.)
+	// iter22 Fix Q2: totalHeight 50 -> 56. gui_drawSpellbook uses totalHeight for
+	// copyRegion(64,121,...,112,totalHeight,0,2) (workpage write window) AND for
+	// copyRegion(64,121,...,112,totalHeight,2,0) (page-0 paint-back). But the
+	// spellbook backup/restore in magic_eob.cpp:62 and gui_eob.cpp:1359 already
+	// hard-coded 56 (Y=121..176). With totalHeight=50, page-2 workspace only
+	// covered Y=121..170, but spell list row 3 (i=2) at listStartY=129 + lineH(15)*2
+	// = Y=159 with 14-tall CJK glyphs extends to Y=172, overflowing the page-2 work
+	// region by 2 px. After spellbook close, page-2 still held stale text at
+	// Y=171..172 that bled through subsequent inventory redraws as ghost glyphs.
+	// iter26: extend list-box drawing to cover "中止施法" abort text at bottom.
+	//   listTotalH 30→52: box covers Y=128..180 (was 128..158, abort at Y=164 was outside).
+	//   totalHeight 56→62: panel + page-2 backup region covers Y=121..183.
+	//   abortStrY 164→167: re-center "中止施法" 16-tall (with 15-tall CJK) below list rows.
+	//   listSize=2 (2 spell rows visible × 15 px = 30, list rows at Y=129/144).
+	//   Hardcoded 56's in magic_eob.cpp:62 + gui_eob.cpp:1359 also bumped to 62.
+	{ 62, 5, 68, 121, 18, 7, 7, 1, 2, 71, 129, 52, 0, 0, 0, 0, 71, 167, 161, { 0x44, 0x62, 0x80, 0x90 }, { 0x82, 0x92, 0x9A } }
 };
 
 const KyraRpgGUISettings EoBEngine::_guiSettingsEGA = {

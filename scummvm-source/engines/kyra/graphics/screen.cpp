@@ -1613,6 +1613,19 @@ uint16 Screen::fetchChar(const char *&s) const {
 		((fontType == Font::kBIG5 || fontType == Font::kJohab) && ch < 0x80))
 			return ch;
 
+	// iter15 fix (EOB1 ZH MinGW spellbook/memorize crash 0xC0000005 @ fetchChar+0x40):
+	// Defensive guard against truncated multibyte sequences. A stray Big5/SJIS lead
+	// byte at end of an unterminated buffer (e.g. EoBCharacter::name[21] partially
+	// initialized from an 11-byte EOB1 DOS save, or a fixed-size resource string
+	// without trailing NUL) would walk one byte past the buffer to read the trail.
+	// iter13 NUL-stuffed c->name[10]/[20]; iter14's 16-tall ceob.pat re-shuffled the
+	// heap and exposed another OOB site in the spellbook draw path (different buffer,
+	// same pattern). Fix at the choke point instead of every caller: when the byte
+	// after a lead is NUL, treat the lead as a standalone byte and DO NOT consume
+	// the NUL — the caller's `while (fetchChar(str))` loop must still terminate.
+	if (*s == '\0')
+		return ch;
+
 	ch |= (uint8)(*s++) << 8;
 	return ch;
 }

@@ -42,6 +42,8 @@ static const Entry kEoB1ZhTable[] = {
 	{ "it smells terrible here.", "\xa6\xb9\xb3\x42\xa8\xfd\xa9\x52\xb7\xa5\xae\x74\xa1\x43" }, // 此處氣味極差。
 	{ "skeleton",             "\xb0\xa9\xc5\xe9" },                                  // 骸體
 	{ "star of navigation.",  "\xbe\xc9\xb1\x4b\xa4\xa7\xac\x50\xa1\x43" },          // 導引之星。
+	{ "fallen rocks block the way.", "\xb8\xa8\xa5\xdb\xbe\xd7\xb8\xf4\xa1\x43" },   // 落石擋路。
+	{ "fallen rocks block the wa",  "\xb8\xa8\xa5\xdb\xbe\xd7\xb8\xf4\xa1\x43" },    // 落石擋路。(truncated form)
 
 	// Sentinel (NULL marks end)
 	{ nullptr, nullptr }

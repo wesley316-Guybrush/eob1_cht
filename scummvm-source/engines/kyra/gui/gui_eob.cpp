@@ -1354,9 +1354,14 @@ int EoBCoreEngine::clickedSceneSpecial(Button *button) {
 
 int EoBCoreEngine::clickedSpellbookAbort(Button *button) {
 	_updateFlags = 0;
-	_screen->fillRect(64, 121, 175, 176, 0, 0);
-	_screen->fillRect(64, 121, 175, 176, 0, 2);
-	_screen->copyRegion(0, 0, 64, _flags.platform == Common::kPlatformSegaCD ? 120 : 121, 112, 56, Screen_EoB::kSpellbookBackupPage, 0, Screen::CR_NO_P_CHECK);
+	// iter26: extend EOB1 ZH spellbook close fillRect + copyRegion bottom from
+	// Y=176 to Y=183 / height 56→62 to match _guiSettingsVGA_ZH.totalHeight that
+	// now wraps the "中止施法" abort text in the panel background.
+	int sbBottom = (_flags.gameID == GI_EOB1 && _flags.lang == Common::ZH_TWN) ? 183 : 176;
+	int sbHeight = (_flags.gameID == GI_EOB1 && _flags.lang == Common::ZH_TWN) ? 62 : 56;
+	_screen->fillRect(64, 121, 175, sbBottom, 0, 0);
+	_screen->fillRect(64, 121, 175, sbBottom, 0, 2);
+	_screen->copyRegion(0, 0, 64, _flags.platform == Common::kPlatformSegaCD ? 120 : 121, 112, sbHeight, Screen_EoB::kSpellbookBackupPage, 0, Screen::CR_NO_P_CHECK);
 	gui_drawCompass(true);
 	gui_toggleButtons();
 	_screen->updateScreen();
@@ -2212,7 +2217,16 @@ void GUI_EoB::simpleMenu_setup(int sd, int maxItem, const char *const *strings, 
 
 	memset(_menuOverflow, 0, sizeof(_menuOverflow));
 
-	if (_vm->game() == GI_EOB2 && _vm->gameFlags().lang == Common::Language::ZH_TWN) {
+	// iter22 Fix Q4: Gate widened from `GI_EOB2 && ZH_TWN` to `ZH_TWN`. EOB1 chargen
+	// alignmentMenu (sd=3) has 9 items × 15-px line height starting at curDim.sy=64
+	// + dm.sy=16 = Y=80, ending Y=215, overflowing the 200-px screen bottom by 15 px.
+	// User-reported "絕對中立 (item 5) top-clipped" — actually items 1-5 fit but
+	// 6-9 spill into spellbook frame area / off-screen. raceSexMenu (sd=1, 12 items)
+	// and classMenu (sd=2, 6 items) also benefit: EOB1 ZH was previously falling
+	// into the single-column path which mathematically overflows for 12 items
+	// (12*15=180 px from Y=80 → Y=260, very off-screen). EOB2 ZH already uses this
+	// 2-column path successfully — share it.
+	if (_vm->gameFlags().lang == Common::Language::ZH_TWN) {
 		switch (sd) {
 		case 1:
 		case 3:

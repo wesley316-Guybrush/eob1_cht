@@ -57,6 +57,20 @@ Common::Error EoBCoreEngine::loadGameState(int slot) {
 		c->id = in.readByte();
 		c->flags = in.readByte();
 		in.read(c->name, (header.version < 18) ? 11 : 21);
+		// iter13 fix (EOB1 ZH 0xC0000005 crash on portrait click):
+		// Read path here reads 21 bytes for version >= 18 (FMTowns extension),
+		// but the WRITE path at line ~1124 only writes 11 bytes for non-FMTowns.
+		// The extra 10 bytes read from a non-FMTowns save contain the *following*
+		// save fields (strength/intel/etc stats, signed bytes). If any of those
+		// happens to land in the Big5 lead range (0xA1-0xF9), Screen::fetchChar
+		// (graphics/screen.cpp:1605) treats it as a CJK lead byte and reads the
+		// next byte as the trail — walking past name[20] OOB. Latent since
+		// kPlatformFMTowns extension; iter13's 16-tall ceob.pat reshuffled heap
+		// allocations and turned a benign OOB read into an unmapped page fault.
+		// Force NUL at byte 10 for non-FMTowns + safety NUL at name[20].
+		c->name[20] = '\0';
+		if (header.version < 18 || _flags.platform != Common::kPlatformFMTowns)
+			c->name[10] = '\0';
 		c->strengthCur = in.readSByte();
 		c->strengthMax = in.readSByte();
 		c->strengthExtCur = in.readSByte();
@@ -734,6 +748,10 @@ Common::String EoBCoreEngine::readOriginalSaveFile(const Common::Path &file) {
 		in.read(c->name, sourcePlatform == Common::kPlatformFMTowns ? 21 : 11);
 		if (_flags.platform != sourcePlatform)
 			c->name[10] = '\0';
+		// iter13 fix: safety NUL on last byte (party transfer path).
+		// Defends against unterminated 21-byte FMTowns names ending in a
+		// stray Big5 lead byte that would cause Screen::fetchChar OOB read.
+		c->name[20] = '\0';
 		c->strengthCur = in.readSByte();
 		c->strengthMax = in.readSByte();
 		c->strengthExtCur = in.readSByte();

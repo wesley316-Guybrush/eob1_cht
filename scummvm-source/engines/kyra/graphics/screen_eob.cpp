@@ -193,11 +193,12 @@ bool Screen_EoB::init() {
 			if (!f.open("ceob.pat"))
 				return false;
 			_big5.reset(new Graphics::Big5Font());
-			// EOB2 CHT shipped 14-row glyphs. EOB1 fan translation re-encodes
-			// the same source font cropped to 10 rows (top/bottom 2 rows trimmed)
-			// so character generation stats and name input stop overlapping the
-			// 8-row ASCII baseline.
-			_big5->loadPrefixedRaw(f, (_vm->game() == GI_EOB1) ? 12 : 14);
+			// iter26: 15×15 via PIL bicubic resample of Unifont 16×16 (NOT mask/crop).
+			// CJK 15-tall matches ASCII PCBIOS Tall 15-tall → perfect line-height
+			// alignment for mixed text (no overlap, no excess gap). Glyph packed
+			// into 16-wide cell at cols 0..14 (col 15 zero = 1-px right gap).
+			// EOB2 ZH stays at 14 (original CHINFONT.FNT is 14-row native).
+			_big5->loadPrefixedRaw(f, (_vm->game() == GI_EOB1) ? 15 : 14);
 		}
 
 		return true;

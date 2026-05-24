@@ -762,6 +762,9 @@ static const char *const kEoB1SpellNamesDOSChinese[51] = {
 static const StringListProvider kEoB1SpellNamesDOSChineseProvider = { ARRAYSIZE(kEoB1SpellNamesDOSChinese), kEoB1SpellNamesDOSChinese };
 
 static const char *const kEoB1MagicStrings1DOSChinese[6] = {
+	/* iter25: restore "中止施法" — abort string moved to BOTTOM of spellbook panel */
+	/* (abortStrX=71, abortStrY=164 in _guiSettingsVGA_ZH). With X=71 start and */
+	/* spellbook X range 64..176, 4 chars × 14 px = 56 → ends X=127 fits cleanly. */
 	"\xa4\xa4\xa4\xee\xac\x49\xaa\x6b", /* "中止施法" */
 	"\xa4\xa4\xa4\xee\xac\x49\xaa\x6b", /* "中止施法" */
 	"\xac\x49\xa6\xb9\xaa\x6b\xb3\x4e\xbb\xdd\xaa\xc5\xa4\xe2\xa1\x43\r", /* "施此法術需空手。" */
@@ -906,7 +909,7 @@ static const char *const kEoB1ItemNamesDOSChinese[95] = {
 	"\xaa\x6b\xb3\x4e\xae\xd1", /* "瘜??? */
 	"\xaa\xaa\xae\x76\xb8\x74\xb2\xc5", /* "?批葦?泵" */
 	"\xa5\xd6\xb9\x75", /* "?桅" */
-	"\xc5\x4b\xc2\xb3", /* "?萇釦" */
+	"\xb0\xae\xc2\xb3", /* "乾糧" — iter23: 鐵糧→乾糧 (Iron Rations 正統 D&D 中文化) */
 	"NULL", /* "NULL" */
 	"\xc4\x5f\xa5\xdb\xc6\x5f\xb0\xcd", /* "撖嗥?啣?" */
 	"\xc3\xc4\xa4\xf4", /* "?交偌" */

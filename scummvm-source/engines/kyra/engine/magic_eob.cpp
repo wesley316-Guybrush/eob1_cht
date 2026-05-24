@@ -59,7 +59,9 @@ void EoBCoreEngine::useMagicBookOrSymbol(int charIndex, int type) {
 	}
 
 	if (!_updateFlags)
-		_screen->copyRegion(64, _flags.platform == Common::kPlatformSegaCD ? 120 : 121, 0, 0, 112, 56, 0, Screen_EoB::kSpellbookBackupPage, Screen::CR_NO_P_CHECK);
+		// iter26: backup region height 56→62 to match _guiSettingsVGA_ZH.totalHeight
+		// (cover Y=121..183 = list box extended to wrap "中止施法" abort text)
+		_screen->copyRegion(64, _flags.platform == Common::kPlatformSegaCD ? 120 : 121, 0, 0, 112, (_flags.gameID == GI_EOB1 && _flags.lang == Common::ZH_TWN) ? 62 : 56, 0, Screen_EoB::kSpellbookBackupPage, Screen::CR_NO_P_CHECK);
 	_updateFlags = 1;
 	gui_setPlayFieldButtons();
 	gui_drawSpellbook();
