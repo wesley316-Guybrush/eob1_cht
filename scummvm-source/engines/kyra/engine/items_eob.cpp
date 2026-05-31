@@ -434,8 +434,19 @@ int EoBCoreEngine::getQueuedItem(Item *items, int pos, int id) {
 
 void EoBCoreEngine::printFullItemName(Item item) {
 	EoBItem *itm = &_items[item];
-	const char *nameUnid = _itemNames[itm->nameUnid];
-	const char *nameId = _itemNames[itm->nameId];
+	// iter30 fix: bounds-check item name indices. _itemNames array size is
+	// game-data dependent (95 for EOB1 ZH). Stale/uninit nameUnid/nameId in
+	// floor item slots could index past array → garbage char* → fetchChar()
+	// OOB → SEGV on scroll pickup ("撿起卷軸後當機").
+	const int nameMax = _itemNames ? 95 : 0;  // EOB1 has 95, EOB2 ~115 (still safe at 95)
+	const char *nameUnid = (itm->nameUnid >= 0 && itm->nameUnid < nameMax && _itemNames[itm->nameUnid])
+		? _itemNames[itm->nameUnid] : "";
+	const char *nameId = (itm->nameId >= 0 && itm->nameId < nameMax && _itemNames[itm->nameId])
+		? _itemNames[itm->nameId] : "";
+	if (itm->nameUnid >= nameMax || itm->nameId >= nameMax) {
+		warning("[iter30] item name OOB: nameUnid=%d nameId=%d max=%d (item=%d type=%d)",
+			itm->nameUnid, itm->nameId, nameMax, item, itm->type);
+	}
 	uint8 f = _itemTypes[itm->type].extraProperties & 0x7F;
 	int8 v = itm->value;
 
@@ -460,31 +471,69 @@ void EoBCoreEngine::printFullItemName(Item item) {
 				tmpString = _flags.gameID == GI_EOB1 ? Common::String::format(_enchantedString[0], nameUnid, v) : Common::String::format(_enchantedString[0], v, nameUnid);
 			break;
 
-		case 9:
+		case 9: {
+			// iter30 fix: bounds-check spell index against _numSpells to prevent
+			// OOB read on EOB1 ZH scroll pickup crash. _spells[] sized _numSpells=53
+			// (EOB1) / 70 (EOB2). Mage scroll item.value can theoretically exceed
+			// the array if game data has stale/corrupted value, → _spells[v].name
+			// returns garbage pointer → fetchChar() deref → SEGV on Windows.
 			tstr2 = _magicObjectStrings[0];
-			tstr3 = _spells[v].name;
+			int spellIdx9 = v;
+			if (spellIdx9 < 0 || spellIdx9 >= _numSpells || !_spells[spellIdx9].name) {
+				warning("[iter30] mage scroll OOB: item value v=%d _numSpells=%d", v, _numSpells);
+				tstr3 = nameUnid;
+			} else {
+				tstr3 = _spells[spellIdx9].name;
+			}
 			correctSuffixCase = true;
 			break;
+		}
 
-		case 10:
+		case 10: {
 			tstr2 = _magicObjectStrings[1];
-			tstr3 = _spells[_flags.gameID == GI_EOB1 ? (_clericSpellOffset + v) : v].name;
+			int spellIdx10 = (_flags.gameID == GI_EOB1) ? (_clericSpellOffset + v) : v;
+			if (spellIdx10 < 0 || spellIdx10 >= _numSpells || !_spells[spellIdx10].name) {
+				warning("[iter30] cleric scroll OOB: v=%d clericOffset=%d idx=%d _numSpells=%d",
+					v, _clericSpellOffset, spellIdx10, _numSpells);
+				tstr3 = nameUnid;
+			} else {
+				tstr3 = _spells[spellIdx10].name;
+			}
 			correctSuffixCase = true;
 			break;
+		}
 
-		case 14:
+		case 14: {
+			// iter30 fix: bounds-check potion suffix array (EOB1 ZH: 8 entries).
 			tstr2 = _magicObjectStrings[3];
+			int pv = v;
 			if (_flags.gameID == GI_EOB1)
-				v--;
-			tstr3 = _suffixStringsPotions[v];
+				pv--;
+			const int potionMax = (_flags.gameID == GI_EOB1) ? 8 : 16;
+			if (pv < 0 || pv >= potionMax) {
+				warning("[iter30] potion suffix OOB: v=%d adjusted=%d max=%d", v, pv, potionMax);
+				tstr3 = nameUnid;
+			} else {
+				tstr3 = _suffixStringsPotions[pv];
+			}
 			break;
+		}
 
-		case 16:
+		case 16: {
+			// iter30 fix: bounds-check ring suffix array (EOB1 ZH: 4 entries).
 			tstr2 = _magicObjectStrings[2];
-			tstr3 = _suffixStringsRings[v];
+			const int ringMax = (_flags.gameID == GI_EOB1) ? 4 : 8;
+			if (v < 0 || v >= ringMax) {
+				warning("[iter30] ring suffix OOB: v=%d max=%d", v, ringMax);
+				tstr3 = nameUnid;
+			} else {
+				tstr3 = _suffixStringsRings[v];
+			}
 			break;
+		}
 
-		case 18:
+		case 18: {
+			// iter30 fix: bounds-check wand suffix array (EOB1 ZH: 7 entries).
 			if (_flags.gameID == GI_EOB2 && v == 5) {
 				if (_flags.lang == Common::DE_DEU)
 					tstr2 = _magicObjectString5[0];
@@ -494,8 +543,15 @@ void EoBCoreEngine::printFullItemName(Item item) {
 			} else {
 				tstr2 = _magicObjectStrings[4];
 			}
-			tstr3 = _suffixStringsWands[v];
+			const int wandMax = (_flags.gameID == GI_EOB1) ? 7 : 12;
+			if (v < 0 || v >= wandMax) {
+				warning("[iter30] wand suffix OOB: v=%d max=%d", v, wandMax);
+				tstr3 = nameUnid;
+			} else {
+				tstr3 = _suffixStringsWands[v];
+			}
 			break;
+		}
 
 		default:
 			tmpString = nameUnid;

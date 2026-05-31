@@ -300,7 +300,14 @@ static const char *const kEoB1MagicObjectString5DOSChinese[1] = {
 
 static const StringListProvider kEoB1MagicObjectString5DOSChineseProvider = { ARRAYSIZE(kEoB1MagicObjectString5DOSChinese), kEoB1MagicObjectString5DOSChinese };
 
-static const char *const kEoB1PatternSuffixDOSChinese[1] = {
+static const char *const kEoB1PatternSuffixDOSChinese[2] = {
+	"%s \xaa\xba %s", /* "的" */
+	/* iter30 SCROLL CRASH FIX: items_eob.cpp:543 indexes _patternSuffix[0|1] */
+	/* based on whether tstr2 contains _patternGrFix1[0] or [2][0]. Magic object */
+	/* names (卷軸/魔藥/戒指/法杖) never contain the format pattern "%s 的 %s", */
+	/* so the ternary always picks index 1. Original 1-entry array → OOB read → */
+	/* garbage pointer to String::format → SEGV on EVERY scroll/wand pickup. */
+	/* Duplicate the format string at [1] to keep behavior consistent + crash-safe. */
 	"%s \xaa\xba %s", /* "的" */
 };
 
